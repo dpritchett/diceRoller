@@ -24,7 +24,7 @@ func main() {
 }
 
 func diceHandler(w http.ResponseWriter, req *http.Request) {
-  fmt.Fprintf(w, "%d", rollDice())
+  fmt.Fprintf(w, "You rolled a %d.", rollDice())
 }
 
 func rollDice() int {
