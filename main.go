@@ -1,71 +1,71 @@
 package main
 
 import (
-  "fmt"
-  "log"
-  "math/rand"
-  "net/http"
-  "os"
-  "time"
+	"fmt"
+	"log"
+	"math/rand"
+	"net/http"
+	"os"
+	"time"
 )
 
-var asciiDice = map [int]string {
-  1: ` -----
+var asciiDice = map[int]string{
+	1: ` -----
 |     |
 |  o  |
 |     |
  -----`,
 
-  2: ` -----
+	2: ` -----
 | o   |
 |     |
 |   o |
  -----`,
 
-3: ` -----
+	3: ` -----
 | o   |
 |  o  |
 |   o |
  -----`,
 
-4: ` -----
+	4: ` -----
 | o o |
 |     |
 | o o |
  -----`,
 
-5: ` -----
+	5: ` -----
 | o o |
 |  o  |
 | o o |
  -----`,
 
-6: ` -----
+	6: ` -----
 | o o |
 | o o |
 | o o |
- -----` }
+ -----`}
 
 func main() {
-  rand.Seed(time.Now().UTC().UnixNano())
+	rand.Seed(time.Now().UTC().UnixNano())
 
-  if(len(os.Args) < 2) {
-    log.Fatal("Usage: 'diceRoller 3000' to listen on port 3000")
-  }
+	port := os.Getenv("PORT")
 
-  port := os.Args[1]
+	if len(port) == 0 {
+		port = "3000"
+	}
 
-  http.HandleFunc("/", diceHandler)
-  log.Println("Starting up on port " + port + "...")
-  log.Fatal(http.ListenAndServe(":" + port, nil))
+	http.HandleFunc("/", diceHandler)
+	log.Println("Starting up on port " + port + "...")
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func diceHandler(w http.ResponseWriter, req *http.Request) {
-  //fmt.Fprintf(w, "You rolled a %d.", rollDice())
-  fmt.Fprintf(w, rollDice())
+	//fmt.Fprintf(w, "You rolled a %d.", rollDice())
+	fmt.Fprintf(w, rollDice())
 }
 
 func rollDice() string {
-  n := rand.Intn(6) + 1
-  return asciiDice[n];
+	n := rand.Intn(6) + 1
+	return asciiDice[n]
 }

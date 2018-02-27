@@ -1,0 +1,15 @@
+{
+  "name": "dice-roller",
+  "profile": "default",
+  "regions": [
+    "us-east-2"
+  ],
+  "stages": {
+    "staging": {
+      "domain": "dice-roller-staging.pritchettbots.com"
+    },
+    "production": {
+      "domain": "dice-roller.pritchettbots.com"
+    }
+  }
+}
